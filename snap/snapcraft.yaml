@@ -1,0 +1,40 @@
+# Description: 
+#   Snap package for k6, a developer centric open source load testing tool for testing the performance of
+#   your backend infrastructure. It’s built with Go and JavaScript to integrate well into your development workflow, so you can stay on top of performance without fuzz.
+#
+# Homepage: https://k6.io/
+# Documentation: https://docs.k6.io/docs
+# Github: https://github.com/loadimpact/k6/releases
+#
+# Snap author: Ioannis Polyzos 
+
+name: k6
+version: 'v0.22.1'
+summary: k6 Snap Package
+description: |
+  Snap package for k6, a developer centric open source load testing tool for testing the performance of
+  your backend infrastructure.
+
+grade: stable
+confinement: strict 
+
+parts:
+  k6:
+    source-type: git
+    source: https://github.com/loadimpact/k6
+    source-tag: ${SNAPCRAFT_PROJECT_VERSION}
+    plugin: go 
+    go-importpath: github.com/loadimpact/k6
+    override-build: |
+      export GOPATH=$(realpath ../go)
+      mkdir -p ${SNAPCRAFT_PART_INSTALL}/bin/
+      go get github.com/loadimpact/k6
+      cd ${GOPATH}/src/github.com/loadimpact/k6
+      go build -o ${SNAPCRAFT_PART_INSTALL}/bin/k6
+      chmod +x ${SNAPCRAFT_PART_INSTALL}/bin/k6
+
+apps:
+  k6:
+    command: bin/k6
+    plugs:
+      - network-bind
