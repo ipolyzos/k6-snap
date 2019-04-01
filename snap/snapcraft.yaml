@@ -9,7 +9,7 @@
 # Snap author: Ioannis Polyzos 
 
 name: k6
-version: 'v0.23.1'
+version: 'v0.24.0'
 summary: k6 Snap Package
 description: |
   Snap package for k6, a developer centric open source load testing tool for testing the performance of
